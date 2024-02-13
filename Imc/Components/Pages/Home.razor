@@ -1,0 +1,75 @@
+@page "/"
+@using Imc.Services
+@inject NavigationManager Navigation
+@inject ImcService ImcService
+
+<PageTitle>IMC Calc</PageTitle>
+
+<div style="margin-bottom: 20px; margin-top: 20px;">
+    <div class="page-header">Cálculo de IMC</div>
+</div>
+
+<EditForm Model="ImcFormData">
+    <div>
+        <InputText class="input-text" @bind-Value="ImcFormData.Altura" placeholder="Altura" />
+    </div>
+    <div>
+        <InputText class="input-text" @bind-Value="ImcFormData.Peso" placeholder="Peso" />
+    </div>
+    <div>
+        <InputText class="input-text" @bind-Value="ImcFormData.Sexo" placeholder="Sexo" />
+    </div>
+</EditForm>
+
+
+<div class="checkbox-option-empty" style="margin-bottom: 20px; margin-top: 20px;">
+    <input class="checkbox-empty" type="checkbox">
+    <div class="checkbox-text">
+        Eu tenho 65 anos ou mais
+    </div>
+</div>
+
+<div class="buttons">
+    <button class="button-primary" @onclick="CalcularImc">
+        Calcular meu IMC
+    </button>
+
+    <button class="button-secundary" @onclick="EntendaCalculoImc">
+        Entenda o cálculo
+    </button>
+</div>
+
+@code {
+
+    public class ImcData
+    {
+        public string Altura { get; set; } = string.Empty;
+        public string Peso { get; set; } = string.Empty;
+        public string Sexo { get; set; } = string.Empty;
+        public bool IdadeChecked { get; set; }
+    }
+
+    public ImcData ImcFormData { get; set; } = new();
+
+    void CalcularImc()
+    {
+        double altura = Convert.ToDouble(ImcFormData.Altura.Replace(".", ","));
+        double peso = Convert.ToDouble(ImcFormData.Peso.Replace(".", ","));
+
+        double imc = peso / (altura * altura);
+
+        ImcService.AddResult(imc);
+
+        Navigation.NavigateTo("/history");
+    }
+
+    void EntendaCalculoImc()
+    {
+        Navigation.NavigateTo("/entendaimc");
+    }
+
+    double CalcularImc(double peso, double altura)
+    {
+        return peso / (altura * altura);
+    }
+}

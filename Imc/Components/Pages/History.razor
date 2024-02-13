@@ -1,0 +1,48 @@
+@page "/history"
+@using Imc.Models
+@using Imc.Services
+@inject NavigationManager Navigation
+@inject ImcService ImcService
+
+<PageTitle>History</PageTitle>
+
+<div style="margin-bottom: 20px; margin-top: 10px;">
+    <img src="img/icon-no-bg.png" class="icon-no-bg">
+</div>
+
+<div>
+    <div class="page-header">Histórico</div>
+</div>
+
+<input class="input-search" type="search" value="Pesquisar..." />
+
+<div class="content-blocks">
+
+    @if (imcResults.Count > 0)
+    {
+        @foreach (var result in imcResults)
+        {
+            <div class="content-block-small">
+                <div class="content-block"></div>
+                <div class="content-block-header">IMC: @result.Classification</div>
+                <div class="content-block-time">@result.Date.ToString("dd/MM/yy")</div>
+                <div class="content-block-text">@result.Message)</div>
+                <div class="divider-line"></div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Nenhum resultado disponível.</p>
+    }
+
+</div>
+
+@code {
+    List<ImcResult> imcResults = new List<ImcResult>();
+
+    protected override void OnInitialized()
+    {
+        imcResults.AddRange(ImcService.GetResults().OrderByDescending(x => x.Date));
+    }
+}
