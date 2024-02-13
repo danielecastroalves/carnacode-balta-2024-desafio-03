@@ -1,7 +1,7 @@
+using Imc.Components;
+using Imc.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Imc;
-using Imc.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
