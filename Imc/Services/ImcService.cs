@@ -27,9 +27,9 @@ namespace Imc.Services
         private static string ClassificarIMC(double imc)
         {
             if (imc < 18.5)
-                return "Abaixo do peso ✅";
+                return "Abaixo do peso ❗";
             else if (imc < 24.9)
-                return "Peso normal ✅";
+                return "Peso ideal ✅";
             else if (imc < 29.9)
                 return "Sobrepeso ❗";
             else if (imc < 34.9)
@@ -45,7 +45,7 @@ namespace Imc.Services
             if (imc < 18.5)
                 return "Você está abaixo do peso.";
             else if (imc < 24.9)
-                return "Parabéns, você está com o peso normal!";
+                return "Parabéns, você está no seu peso ideal!";
             else if (imc < 29.9)
                 return "Cuidado, você está com sobrepeso!";
             else if (imc < 34.9)
